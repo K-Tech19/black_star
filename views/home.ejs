@@ -1,1 +1,27 @@
 <h1>Home</h1>
+
+<form action="/" method="GET">
+
+    <label for="search">SEARCH</label>
+    <input type="text" name="query" id="search">
+    <input type="submit" value='GO' >
+    
+    </form>
+    <br>
+    <div class="container">
+        <div class="row align-self-center">
+            <% results.forEach(result => { %>
+                <div class="col-sm-4 ">
+                    <img src="<%=  result.image_url %>" />
+                    <p> <%=  result.title %> </p> 
+                    <p> <%=  result.type %> </p> 
+                    <p> <%=  result.rated %> </p> 
+                    <p> <%=  result.synopsis %> </p> 
+                    <p> Episodes: <%=  result.episodes %> </p> 
+                </div>
+            <% }) %>
+    
+    
+            
+        </div>
+    </div>

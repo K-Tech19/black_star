@@ -6,6 +6,7 @@ const session  = require('express-session')
 const passport = require('./config/ppConfig.js')
 const flash = require('connect-flash')
 const isLoggedIn = require('./middleware/isLoggedIn')
+const { default: axios } = require('axios');
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -15,6 +16,7 @@ app.use(require('express-ejs-layouts'));
 
 //body parser middelware allows us to receive form data in req.body
 app.use(express.urlencoded({extended: false}));
+app.use(express.static((__dirname, 'public')));
 
 //session middleware
 app.use(session({
@@ -45,7 +47,20 @@ app.use('/auth', require('./controller/auth.js'))
 // Routes
 // home route
 app.get('/', (req,res)=>{
-    res.render('home')
+    // let animeUrl = ''
+    if(req.query.query){
+        axios.get(`https://api.jikan.moe/v3/search/anime?q=${req.query.query}&page=1`)
+        .then(response =>{
+            // console.log(`response is here ${response} 🥶`)
+            // res.send(response.data)
+            res.render('home', {results: response.data.results})
+        }).catch(err=>{
+            console.log(err)
+        })
+    } else {
+        res.render('home', {results: []})
+    }
+    
 });
 
 
