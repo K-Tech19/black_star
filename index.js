@@ -43,6 +43,9 @@ app.use((req,res, next)=> {
 
 //controller middleware
 app.use('/auth', require('./controller/auth.js'))
+app.use('/', require('./controllers/anime'))
+app.use('/', require('./controllers/comments'))
+app.use('/', require('./controllers/users'))
 
 // Routes
 // home route
@@ -50,10 +53,11 @@ app.get('/', (req,res)=>{
     // let animeUrl = ''
     if(req.query.query){
         axios.get(`https://api.jikan.moe/v3/search/anime?q=${req.query.query}&page=1`)
+        // axios.get(`https://api.jikan.moe/v3/anime/1/episodes`)
         .then(response =>{
             // console.log(`response is here ${response} 🥶`)
-            // res.send(response.data)
-            res.render('home', {results: response.data.results})
+            res.send(response.data)
+            // res.render('home', {results: response.data.results})
         }).catch(err=>{
             console.log(err)
         })
@@ -67,6 +71,8 @@ app.get('/', (req,res)=>{
 app.get('/profile', isLoggedIn, (req,res)=>{
     res.render('profile')
 });
+
+
 
 app.get('*', (req,res)=>{
     res.render('404.ejs')
