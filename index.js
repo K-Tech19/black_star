@@ -7,6 +7,7 @@ const passport = require('./config/ppConfig.js')
 const flash = require('connect-flash')
 const isLoggedIn = require('./middleware/isLoggedIn')
 const { default: axios } = require('axios');
+const db = require('./models/index.js');
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -70,11 +71,16 @@ app.get('/', (req,res)=>{
 
 
 app.get('/profile', isLoggedIn, (req,res)=>{
-    res.render('profile')
+    db.anime.findAll().then(favAnime =>{
+        // console.log(favAnime)
+        res.render('profile', {faves: favAnime})
+    })
 });
 
-app.put('/profile/edit',(req,res) =>{
-    res.render('/profile/edit')
+
+
+app.get('/profile/edit',(req,res) =>{
+    res.render('edit')
 })
 
 

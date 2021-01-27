@@ -14,14 +14,19 @@
                 <div class="col-sm-4 ">
                     <img src="<%=  result.image_url %>" />
                     <p> <%=  result.title %> </p> 
+                    <form action="/anime" method="POST">
+                        <input type="hidden" name="name" value="<%= result.title %>">
+                        <input type="hidden" name="image_url" value="<%= result.image_url %>">
+                        <input type="hidden" name="mal_id" value="<%= result.mal_id %>">
+                        <input type="submit" value="add to favorites" />
+                    </form>
                     <p> <%=  result.type %> </p> 
                     <p> <%=  result.rated %> </p> 
                     <p> <%=  result.synopsis %> </p> 
                     <p> Episodes: <%=  result.episodes %> </p> 
                 </div>
             <% }) %>
-    
-    
+                
             
         </div>
     </div>
