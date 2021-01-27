@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     date: DataTypes.STRING,
     imageurl: DataTypes.STRING,
-    mal_id: DataTypes.STRING
+    mal_id: DataTypes.STRING,
+    rating: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'anime',

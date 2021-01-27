@@ -18,6 +18,7 @@ app.use(require('express-ejs-layouts'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.static((__dirname, 'public')));
 
+
 //session middleware
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -43,9 +44,9 @@ app.use((req,res, next)=> {
 
 //controller middleware
 app.use('/auth', require('./controller/auth.js'))
-app.use('/', require('./controllers/anime'))
-app.use('/', require('./controllers/comments'))
-app.use('/', require('./controllers/users'))
+app.use('/anime', require('./controller/anime.js'))
+app.use('/comments', require('./controller/comments.js'))
+app.use('/users', require('./controller/user.js'))
 
 // Routes
 // home route
@@ -56,8 +57,8 @@ app.get('/', (req,res)=>{
         // axios.get(`https://api.jikan.moe/v3/anime/1/episodes`)
         .then(response =>{
             // console.log(`response is here ${response} 🥶`)
-            res.send(response.data)
-            // res.render('home', {results: response.data.results})
+            // res.send(response.data)
+            res.render('home', {results: response.data.results})
         }).catch(err=>{
             console.log(err)
         })
@@ -72,6 +73,9 @@ app.get('/profile', isLoggedIn, (req,res)=>{
     res.render('profile')
 });
 
+app.put('/profile/edit',(req,res) =>{
+    res.render('/profile/edit')
+})
 
 
 app.get('*', (req,res)=>{
@@ -82,4 +86,4 @@ app.listen(process.env.PORT, ()=> {
     console.log (`DO YOU HEAR ME port ${process.env.PORT}!`)
 });
 
-// module.exports = server;
+// module.exports = router;
