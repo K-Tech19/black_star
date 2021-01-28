@@ -20,9 +20,8 @@ module.exports = {
       mal_id: {
         type: Sequelize.STRING
       },
-      rating: { 
+      rated: { 
         type: Sequelize.INTEGER
-
       },
       createdAt: {
         allowNull: false,

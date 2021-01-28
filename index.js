@@ -116,21 +116,22 @@ app.put('/profile/edit', (req,res)=>{
     })
 })
 
-app.delete('/profile', isLoggedIn, (req,res)=>{
+app.delete('/profile/:id', isLoggedIn, (req,res)=>{
 //First, get a reference to a user
     db.user.findOne({
         where: {
             id: req.user.id
         }
-        }).then(([foundUser]) => {
-
-        db.anime.destroy({
-        where: {type: req.params}
-        }).then(deletedAnime => {
-            console.log("GET IT OUT THIS INSTANT🍜🍜", deletedAnime)
-            // res.redirect('/profile')
-            // msg: 'anime deleted'
-        });
+        }).then((foundUser) => {
+        db.anime.findOne({
+        where: {id: req.params.id}
+        }).then(anime => {
+            console.log("GET IT OUT THIS INSTANT🍜🍜", anime)
+            foundUser.removeAnime(anime)
+            .then(()=>{
+                res.redirect('/profile')
+            })
+        }) 
     })
     .catch(err =>{
         console.log('DELETE NOT WORKING🚨🚨🚨', err)

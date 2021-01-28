@@ -1,18 +1,17 @@
 <h1> <%=  currentUser.name%>'s Profile</h1>
 
+<a href="/profile/edit">edit my profile</a>
+<h2> <%= currentUser.about_me %> </h2>
 
 <% faves.forEach(fave =>{ %>
     <p> <%=  fave.name %> </p>
     <p> <%=  fave.rated %> </p>
-    <p> <%=  fave.rating %> </p>
-    <p> <%=  fave.mal_id %> </p>
+    <p> <%= fave.type %> </p>
+    <p> <%= fave.synopsis %> </p>
     <img src="<%=  fave.imageurl %>" />
-    <form action="/profile/edit > "method="POST">
-            <% if (currentUser.id === fave.id){ %>
-
-                <%  } %>
+    <form action="/profile/<%= fave.id %>?_method=DELETE"method="POST">
                 <input type="submit" value="Delete" />
             </form>
             
-    
 <% })%>
+

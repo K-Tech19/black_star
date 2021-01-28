@@ -1,10 +1,16 @@
+*{
+    box-sizing: border-box;
+}
+
 body {
     background-color: black;
     color:  white;
     height: 60%;
 }
 
-
+.bg-light {
+    background-color: black;
+}
 
 .form-control {
     display: flex;
