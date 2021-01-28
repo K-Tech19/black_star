@@ -1,1 +1,12 @@
 <h1> <%=  currentUser.name%>'s Profile</h1>
+
+
+<% faves.forEach(fave =>{ %>
+    <p> <%=  fave.name %> </p>
+    <p> <%=  fave.rated %> </p>
+    <!-- <p> <%=  fave.rating %> </p> -->
+    <p> <%=  fave.mal_id %> </p>
+    <img src="<%=  fave.imageurl %>" />
+    <button>Delete</button>
+    
+<% })%>

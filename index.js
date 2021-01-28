@@ -82,17 +82,38 @@ app.get('/profile', isLoggedIn, (req,res)=>{
         include: [db.anime]
     })
     .then(favAnime =>{
-        console.log(`$$$$$$🙇🏾‍♂️`, favAnime)
-        res.render('profile', {faves: favAnime}) 
+        // let newAnime = favAnime.animes
+
+        // console.log(`$$$$$$🙇🏾‍♂️`, favAnime.animes)
+        res.render('profile', {faves: favAnime.animes}) 
     })
     // db.anime.create()
-});
+}); 
 
 // app.post('/profile')
 
 //about functionality 
-app.get('/profile/edit',(req,res) =>{
+app.get('/profile/edit',isLoggedIn, (req,res) =>{
+    // console.log(req.user.id)
     res.render('edit')
+})
+
+app.put('/profile/edit', (req,res)=>{
+    db.user.findOne({
+        where: {
+            id: req.user.id
+        }
+    }) .then( foundUser => {
+        db.user.update({
+            about_me: req.body.aboutme
+        }, {
+            where: {
+                id: foundUser.id
+            }
+        }) .then(rowsChanged =>{
+            res.redirect('/profile')
+        })
+    })
 })
 
 
