@@ -16,7 +16,7 @@ router.post('/', (req, res)=>{
         imageurl: req.body.image_url,
         mal_id: req.body.mal_id
     }).then((post) =>{
-        console.log('hello mr.postman')
+        // console.log('hello mr.postman')
         res.redirect('/profile')
     })
 })

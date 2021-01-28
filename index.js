@@ -8,6 +8,8 @@ const flash = require('connect-flash')
 const isLoggedIn = require('./middleware/isLoggedIn')
 const { default: axios } = require('axios');
 const db = require('./models/index.js');
+const methodOverride = require('method-override');
+
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -18,6 +20,7 @@ app.use(require('express-ejs-layouts'));
 //body parser middelware allows us to receive form data in req.body
 app.use(express.urlencoded({extended: false}));
 app.use(express.static((__dirname, 'public')));
+app.use(methodOverride('_method'));
 
 
 //session middleware
@@ -51,7 +54,7 @@ app.use('/users', require('./controller/user.js'))
 
 // Routes
 // home route
-app.get('/', (req,res)=>{
+app.get('/', isLoggedIn, (req,res)=>{
     // let animeUrl = ''
     if(req.query.query){
         axios.get(`https://api.jikan.moe/v3/search/anime?q=${req.query.query}&page=1`)
@@ -71,18 +74,43 @@ app.get('/', (req,res)=>{
 
 
 app.get('/profile', isLoggedIn, (req,res)=>{
-    db.anime.findAll().then(favAnime =>{
-        // console.log(favAnime)
-        res.render('profile', {faves: favAnime})
+    console.log(req.user.id)
+    db.user.findOne({
+        where: {
+            id: req.user.id
+        },
+        include: [db.anime]
     })
+    .then(favAnime =>{
+        console.log(`$$$$$$🙇🏾‍♂️`, favAnime)
+        res.render('profile', {faves: favAnime}) 
+    })
+    // db.anime.create()
 });
 
+// app.post('/profile')
 
-
+//about functionality 
 app.get('/profile/edit',(req,res) =>{
     res.render('edit')
 })
 
+
+app.post('/comments', (req,res)=>{
+    console.log(req.body)
+    db.comments.create({
+        userId: req.body.userid,
+        content: req.body.content,
+        animeId: req.body.animeid
+    })
+        .then((comment) => {
+            // console.log(`heyyy im calling all comments here: ${comment}`)
+        res.redirect('profile')
+    })
+        .catch((error) => {
+        res.status(400).render('main/404')
+    })
+})
 
 app.get('*', (req,res)=>{
     res.render('404.ejs')
