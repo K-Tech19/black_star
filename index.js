@@ -116,6 +116,26 @@ app.put('/profile/edit', (req,res)=>{
     })
 })
 
+app.delete('/profile', isLoggedIn, (req,res)=>{
+//First, get a reference to a user
+    db.user.findOne({
+        where: {
+            id: req.user.id
+        }
+        }).then(([foundUser]) => {
+
+        db.anime.destroy({
+        where: {type: req.params}
+        }).then(deletedAnime => {
+            console.log("GET IT OUT THIS INSTANT🍜🍜", deletedAnime)
+            // res.redirect('/profile')
+            // msg: 'anime deleted'
+        });
+    })
+    .catch(err =>{
+        console.log('DELETE NOT WORKING🚨🚨🚨', err)
+    })
+})
 
 app.post('/comments', (req,res)=>{
     console.log(req.body)
