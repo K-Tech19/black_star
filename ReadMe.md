@@ -7,7 +7,7 @@ Black Star is a full stack application that can be used to search your favorite 
 
 ### Features / Techonolgies:
 
-In this application we are using local authorization (passport-local) to authenticate a user. passport-local uses BCrypt to salt then hash the user password in order to add more secreuity for the user. The Sessions middleware is used to keep a user logged in. IsLoggedIn is used to make that any type edits or deletes are done by the user that is currently logged in and not a unknown user. Flash messages are added to notify the user of successes and error when the user logs in. Sequelize is used to create, modify and migrate models. EJS and EJS-layouts are going to be used to connect the backend to the HTML frontend by being able to add embedded javascript to the frontend. Finally Bootstrap is used to help style the site and make it more responsive to smaller screens.
+In this application we are using local authorization (passport-local) to authenticate a user. passport-local uses BCrypt to apply salt rounds then hash the user password in order to add more secruity for your user. The Sessions middleware is used to keep a user logged in. IsLoggedIn is used to make that any type edits or deletes are done by the user that is currently logged in and not a unknown user. Flash messages are added to notify the user of successes and error when the user logs in. Sequelize is used to create, modify and migrate models. EJS and EJS-layouts are going to be used to connect the backend to the HTML frontend by being able to add embedded javascript to the frontend. Finally Bootstrap is used to help style the site and make it more responsive to smaller screens.
 
 This app uses:
 
