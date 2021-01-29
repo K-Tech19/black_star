@@ -1,5 +1,13 @@
 <h1> <%=  currentUser.name%>'s Profile</h1>
 
+<form action="/" method="GET">
+        
+    <label for="search">SEARCH</label>
+    <input type="text" name="query" id="search">
+    <input type="submit" value='GO' >
+    
+    </form> 
+    
 <a href="/profile/edit">edit my profile</a>
 <h2> <%= currentUser.about_me %> </h2>
 
