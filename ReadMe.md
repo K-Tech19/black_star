@@ -22,7 +22,7 @@ This app uses:
 
 ### Accessing the applicaton here:
 
-Link: [placeholder.com]
+Link: [https://github.com/K-Tech19/black_star.git]
 
 ### Installation 
 
